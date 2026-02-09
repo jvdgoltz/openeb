@@ -217,6 +217,9 @@ find_package(Boost COMPONENTS ${boost_components_to_find} REQUIRED)
 add_compile_definitions(BOOST_BIND_GLOBAL_PLACEHOLDERS) ## needed to get rid of warning `#pragma message: The practice of declaring the Bind placeholders (_1, _2, ...)`
 
 # Python 3 for bindings and pytests
+if (DEFINED SKBUILD_PLATLIB_DIR AND NOT PYTHON3_SITE_PACKAGES)
+    set(PYTHON3_SITE_PACKAGES "${SKBUILD_PLATLIB_DIR}" CACHE PATH "Python site-packages install path" FORCE)
+endif()
 if (COMPILE_PYTHON3_BINDINGS OR BUILD_TESTING)
     include(python3)
 endif ()

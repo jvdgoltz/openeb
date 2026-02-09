@@ -1,0 +1,23 @@
+[build-system]
+requires = [
+    "scikit-build-core>=0.10.7",
+    "pybind11>=2.7",
+    "cmake>=3.18",
+]
+build-backend = "scikit_build_core.build"
+
+[project]
+name = "openeb"
+version = "5.2.0"
+description = "OpenEB Metavision SDK and HAL"
+requires-python = ">=3.9"
+
+[tool.scikit-build]
+build-dir = "build/{wheel_tag}"
+cmake.build-type = "Release"
+cmake.args = [
+    "-DBUILD_TESTING=OFF",
+    "-DBUILD_SAMPLES=OFF",
+    "-DMETAVISION_SELECTED_MODULES=base;core;stream;core_ml",
+    "-DUDEV_RULES_SYSTEM_INSTALL=OFF",
+]

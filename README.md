@@ -40,6 +40,46 @@ Compilation and execution were tested on platforms that meet the following requi
 Compilation on other platforms (e.g., alternative Linux distributions, different Ubuntu versions, ARM architectures
 etc.) was not tested. For those platforms, some adjustments to this guide or to the code itself may be required.
 
+### Raspberry Pi (Linux ARM) with `uv` (straight shot)
+
+On Raspberry Pi, build and install from source directly on the Pi (or use a wheel built on Linux ARM).
+
+Do not use a wheel built on macOS Apple Silicon for Raspberry Pi:
+* macOS wheel tag example: `macosx_*_arm64`
+* Raspberry Pi wheel tag example: `linux_aarch64` or `linux_armv7l`
+
+Install prerequisites:
+
+```bash
+sudo apt update
+sudo apt -y install build-essential cmake ninja-build pkg-config git curl
+sudo apt -y install libopencv-dev libboost-all-dev libusb-1.0-0-dev libprotobuf-dev protobuf-compiler
+sudo apt -y install libhdf5-dev hdf5-tools python3-dev python3-venv python3-pip
+```
+
+Build wheel/sdist on the Pi:
+
+```bash
+git clone https://github.com/prophesee-ai/openeb.git
+cd openeb
+uv build \
+  --config-setting=cmake.args="-DBUILD_TESTING=OFF;-DBUILD_SAMPLES=OFF;-DMETAVISION_SELECTED_MODULES=base;core;stream;core_ml;-DUDEV_RULES_SYSTEM_INSTALL=OFF"
+```
+
+Install from local wheel in another project:
+
+```bash
+cd /path/to/your/project
+uv pip install /path/to/openeb/dist/openeb-*.whl
+```
+
+Install from git directly (builds on the Pi):
+
+```bash
+cd /path/to/your/project
+uv add "openeb @ git+https://github.com/<your-user>/openeb.git@<branch-or-tag>"
+```
+
 
 ### Upgrading OpenEB
 
