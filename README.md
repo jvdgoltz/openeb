@@ -55,6 +55,7 @@ sudo apt update
 sudo apt -y install build-essential cmake ninja-build pkg-config git curl
 sudo apt -y install libopencv-dev libboost-all-dev libusb-1.0-0-dev libprotobuf-dev protobuf-compiler
 sudo apt -y install libhdf5-dev hdf5-tools python3-dev python3-venv python3-pip
+sudo apt -y install libgtest-dev libgmock-dev
 ```
 
 Build wheel/sdist on the Pi:
